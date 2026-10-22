@@ -38,6 +38,10 @@ button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-v
 .step-no{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
 .task h2{margin:0;font-size:22px;line-height:1.25;text-wrap:balance}
 .task p{margin:0}
+#stepText{font-size:20px;line-height:1.5}
+.task h2{font-size:26px}
+.b.big{font-size:18px;padding:12px 18px}
+.why{font-size:16px}
 .bar{height:8px;background:var(--wall);border-radius:99px;overflow:hidden}
 .bar i{display:block;height:100%;background:var(--good);width:0;transition:width .4s}
 .target-text{font-family:var(--doc);font-size:20px;background:var(--wall);padding:8px 10px;border-radius:6px}
@@ -50,8 +54,8 @@ button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-v
 .why{font-size:14px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
 
 /* ---------- desk scene ---------- */
-.scene{display:grid;grid-template-columns:120px minmax(0,1fr) 150px;grid-template-areas:"socket monitor cpu" "printer printer disc";gap:16px 18px;align-items:end;background:linear-gradient(var(--wall) 70%,var(--desk) 70%);border-radius:12px;padding:18px;border:1px solid var(--line);position:relative}
-@media (max-width:700px){.scene{grid-template-columns:1fr 1fr;grid-template-areas:"monitor monitor" "socket cpu" "printer disc";background:var(--wall)}}
+.scene{display:grid;grid-template-columns:120px minmax(0,1fr) 150px;grid-template-areas:"socket monitor cpu" "kbd kbd kbd" "printer printer disc";gap:16px 18px;align-items:end;background:linear-gradient(var(--wall) var(--deskTop,52%),var(--desk) var(--deskTop,52%));border-radius:12px;padding:18px;border:1px solid var(--line);position:relative}
+@media (max-width:700px){.scene{grid-template-columns:1fr 1fr;grid-template-areas:"monitor monitor" "kbd kbd" "socket cpu" "printer disc";background:var(--wall)}}
 .hot{position:relative;border-radius:8px}
 .guide .hot.next{box-shadow:0 0 0 4px var(--glow),0 0 18px 6px rgba(255,204,51,.7);animation:pulse 1.4s infinite}
 @keyframes pulse{50%{box-shadow:0 0 0 2px var(--glow),0 0 6px 2px rgba(255,204,51,.4)}}
@@ -202,18 +206,26 @@ button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-v
 .discArea{grid-area:disc;display:flex;flex-direction:column;align-items:center}
 .disc{width:84px;height:84px;border-radius:50%;border:0;background:radial-gradient(circle,#c9a77c 12%,#555 13%,#ddd 15%,#f6f9fc 45%,#c4cfdc 75%,#e9eef5);box-shadow:0 2px 6px rgba(0,0,0,.3);font-size:9px;color:#334;padding:0}
 
-/* on-screen keyboard */
-.oskWrap{grid-column:1/-1}
-.osk{display:grid;gap:4px;background:#2a2f38;padding:8px;border-radius:8px;max-width:760px;margin:0 auto}
-.osk .r{display:flex;gap:4px;justify-content:center}
-.osk button{flex:1;max-width:52px;min-width:0;height:40px;border:0;border-radius:5px;background:#eef1f5;color:#111;font-size:15px;padding:0}
-.osk button.w{max-width:110px;flex:2;font-size:12px}
-.osk button.sp{max-width:300px;flex:6}
+/* keyboard on the desk */
+.oskWrap{grid-area:kbd;display:flex;flex-direction:column;align-items:center}
+.oskWrap[hidden]{display:none}
+.osk{display:grid;gap:6px;background:linear-gradient(#3a404b,#22272f);padding:10px;border-radius:12px;width:100%;max-width:820px;margin:0 auto;box-shadow:0 6px 0 #15181d,0 10px 18px rgba(0,0,0,.3)}
+.osk .r{display:flex;gap:6px;justify-content:center}
+.osk button{flex:1;max-width:60px;min-width:0;height:50px;border:0;border-radius:7px;background:linear-gradient(#ffffff,#e3e7ee);color:#111;font-size:20px;font-weight:700;padding:0;box-shadow:0 3px 0 #9aa3b0}
+.osk button:active{transform:translateY(2px);box-shadow:0 1px 0 #9aa3b0}
+.osk button.w{max-width:120px;flex:2;font-size:15px}
+.osk button.sp{max-width:360px;flex:7;font-size:15px}
 .osk button.on{background:var(--glow)}
+.osk button.keynext{background:#ffd54a;outline:4px solid #ff9800;outline-offset:1px;animation:keypulse 1s ease-in-out infinite}
+@keyframes keypulse{50%{transform:scale(1.12)}}
+@media (prefers-reduced-motion:reduce){.osk button.keynext{animation:none}}
+@media (max-width:700px){.osk button{height:42px;font-size:16px}.osk{gap:4px;padding:6px}.osk .r{gap:4px}}
+.voiceRow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:15px}
+.voiceRow select{font-size:15px;padding:8px;border-radius:6px;border:1px solid var(--line);max-width:100%;flex:1;min-width:0}
 
 .done-card{text-align:center}
 .done-card h2{color:var(--good)}
-.toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#1c2533;color:#fff;padding:10px 16px;border-radius:8px;font-weight:700;max-width:90vw;z-index:20}
+.toast{font-size:18px;position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#1c2533;color:#fff;padding:10px 16px;border-radius:8px;font-weight:700;max-width:90vw;z-index:20}
 </style>
 </head>
 <body>
@@ -233,10 +245,12 @@ button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-v
     <div class="target-text" id="stepTarget" hidden></div>
     <div class="msg" id="msg" hidden></div>
     <div class="btns">
-      <button class="b" id="speak">Read aloud</button>
-      <button class="b" id="oskBtn" aria-pressed="false">On-screen keyboard</button>
+      <button class="b big" id="speak">🔊 Listen</button>
+      <button class="b" id="speedBtn">Speed: Very slow</button>
+      <button class="b" id="oskBtn" aria-pressed="true">Hide keyboard</button>
       <button class="b" id="restartBtn">Start again</button>
     </div>
+    <label class="voiceRow" for="voiceSel">Voice: <select id="voiceSel"><option>Default voice</option></select></label>
     <p class="why" id="stepWhy"></p>
   </section>
 
@@ -396,7 +410,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-v
       <div class="lbl" id="discLbl">Lesson DVD</div>
     </div>
 
-    <div class="oskWrap" id="oskWrap" hidden><div class="osk" id="osk"></div></div>
+    <div class="oskWrap" id="oskWrap"><div class="osk" id="osk"></div><div class="lbl">Keyboard</div></div>
   </section>
 </main>
 <div class="toast" id="toast" hidden></div>
@@ -409,32 +423,32 @@ const S={plugged:false,switchOn:false,pcOn:false,screen:"off",start:false,pwr:fa
   printing:false,paperOut:false,taken:false,ex:false,exPath:"docs",exSel:null,tray:false,discIn:false,dvdOpened:false,openedFile:false,
   mistakes:0,t0:Date.now()};
 
-const MODS=[{id:"power",name:"1 Switch on"},{id:"word",name:"2 Type"},{id:"save",name:"3 Save & print"},{id:"files",name:"4 Find file"},{id:"cd",name:"5 CD/DVD"},{id:"shutdown",name:"6 Shut down"}];
+const MODS=[{id:"power",name:"1 Switch on"},{id:"word",name:"2 Type"},{id:"save",name:"3 Save and print"},{id:"files",name:"4 Find file"},{id:"cd",name:"5 DVD"},{id:"shutdown",name:"6 Switch off"}];
 const STEPS=[
- {m:"power",t:"Insert the power plug",x:"Click the black power plug to push it into the wall socket.",why:"The computer gets electricity from the wall socket through the power cable.",hot:"#plug",done:()=>S.plugged},
- {m:"power",t:"Switch on the socket",x:"Click the switch on the wall socket. The red light will glow.",why:"Always plug in first, then switch on.",hot:"#sw",done:()=>S.switchOn},
- {m:"power",t:"Press the CPU power button",x:"Press the round power button on the front of the CPU.",why:"The CPU is the main box of the computer. The monitor shows what it is doing.",hot:"#power",done:()=>S.pcOn},
- {m:"power",t:"Log in",x:"Type the password 1234 and press Enter (or click the arrow).",why:"A password keeps your files private.",hot:"#pw",done:()=>S.screen==="desk"},
- {m:"word",t:"Open the Word Processor",x:"Click Start at the bottom-left of the screen, then click Word Processor.",why:"The Start menu lists all the programs on the computer.",hot:()=>S.start?"#appWord":"#startBtn",done:()=>S.word},
- {m:"word",t:"Type a sentence",x:"Click on the white page and type exactly:",target:TEXT,why:"Use the Shift key for capital letters and the Space bar between words.",hot:"#doc",done:()=>norm($("doc").innerText)===TEXT},
- {m:"word",t:"Select the text",x:"Select the whole sentence: drag over it with the mouse, press Ctrl + A, or click Select All.",why:"You must select text before you can change how it looks.",hot:"#bSel",done:()=>S.sel},
- {m:"word",t:"Format the text",x:"Make the text Bold (B), Italic (I) and Underline (U). Change the size to 26 and the colour to green.",why:"Formatting makes headings stand out.",hot:()=>!S.fmt.b?"#bB":!S.fmt.i?"#bI":!S.fmt.u?"#bU":S.fmt.size!==26?"#fSize":"#swGreen",done:()=>S.fmt.b&&S.fmt.i&&S.fmt.u&&S.fmt.size===26&&S.fmt.color==="#1b8a3c"},
- {m:"save",t:"Save the document",x:"Click File, then Save As. Type the file name sample and click Save.",why:"Saving keeps your work on the computer so you can open it later.",hot:()=>!$("dlgSave").hidden?($("fname").value.trim().toLowerCase()==="sample"?"#saveGo":"#fname"):S.fileMenu?"#mSave":"#fileBtn",done:()=>S.saved},
- {m:"save",t:"Print the document",x:"Click File, then Print, then click the Print button.",why:"The printer puts your document on paper.",hot:()=>!$("dlgPrint").hidden?"#printGo":S.fileMenu?"#mPrint":"#fileBtn",done:()=>S.paperOut},
- {m:"save",t:"Take your printout",x:"Wait for the page to come out, then click the paper to take it.",why:"Take the page gently from the output tray.",hot:"#sheet",done:()=>S.taken},
- {m:"files",t:"Close the Word Processor",x:"Click the ✕ at the top-right corner of the Word window.",why:"Close programs you have finished using. Your work is already saved.",hot:"#wClose",done:()=>!S.word},
- {m:"files",t:"Find your saved file",x:"Double-click Documents on the desktop. Then double-click sample (or click it and press Open).",why:"Saved files are kept in folders. Documents is the usual folder for letters and papers.",hot:()=>S.ex?"#exList .file-sample":"#icDocs",done:()=>S.openedFile},
- {m:"cd",t:"Open the DVD tray",x:"Press the small eject button on the front of the CPU, just below the DVD slot.",why:"The DVD drive reads CDs and DVDs. The tray slides out when you press eject.",hot:"#eject",done:()=>S.tray},
- {m:"cd",t:"Place the disc",x:"Click the Lesson DVD on the desk to put it in the tray, shiny side down.",why:"Hold a disc by its edges so you do not leave fingerprints.",hot:"#disc",done:()=>S.discIn},
- {m:"cd",t:"Close the tray",x:"Click the tray (or press eject again) to push it back in.",why:"",hot:"#tray",done:()=>S.discIn&&!S.tray},
- {m:"cd",t:"Open the DVD",x:"Close any open windows. Double-click This PC on the desktop, then double-click DVD Drive (E:).",why:"Each drive has a letter. C: is the hard disk, E: is the DVD drive here.",hot:()=>S.word?"#wClose":S.ex?(S.exPath==="pc"?"#exList .file-dvd":"#navPC"):"#icPC",done:()=>S.dvdOpened},
- {m:"shutdown",t:"Shut down the computer",x:"Close all windows. Click Start, then Power, then Shut down.",why:"Shutting down properly protects your files. Never just pull out the plug.",hot:()=>S.ex?"#exClose":S.word?"#wClose":!S.start?"#startBtn":!S.pwr?"#pwrBtn":"#shutBtn",done:()=>S.screen==="off"&&!S.pcOn&&S.shutDone},
- {m:"shutdown",t:"Switch off the socket",x:"After the screen goes dark, switch off the wall socket.",why:"Switch off at the socket to save electricity.",hot:"#sw",done:()=>!S.switchOn}
+ {m:"power",t:"Put in the plug",x:"Click the black plug. It goes into the wall.",s:"Put in the plug. Click the black plug. It goes into the wall.",why:"The computer gets power from the wall.",hot:"#plug",done:()=>S.plugged},
+ {m:"power",t:"Switch on the wall",x:"Click the switch on the wall. A red light comes on.",s:"Switch on the wall. Click the switch. A red light comes on.",why:"First the plug. Then the switch.",hot:"#sw",done:()=>S.switchOn},
+ {m:"power",t:"Press the power button",x:"Press the round button on the CPU box.",s:"Press the power button. It is the round button on the CPU box.",why:"The CPU box is the brain of the computer.",hot:"#power",done:()=>S.pcOn},
+ {m:"power",t:"Type the password",x:"Type 1234. Then press Enter.",s:"Type the password. One. Two. Three. Four. Then press Enter.",why:"The password keeps your work safe.",hot:"#pw",done:()=>S.screen==="desk"},
+ {m:"word",t:"Open Word",x:"Click Start. It is at the bottom. Then click Word Processor.",s:"Open Word. Click Start. It is at the bottom. Then click Word Processor.",why:"Start shows all the programs.",hot:()=>S.start?"#appWord":"#startBtn",done:()=>S.word},
+ {m:"word",t:"Type the words",x:"Click the white page. Type these words:",target:TEXT,s:"Type the words. Click the white page. Type. India is My Country.",why:"Use Shift for a big letter. Use the long Space bar between words.",hot:"#doc",done:()=>norm($("doc").innerText)===TEXT},
+ {m:"word",t:"Select the words",x:"Click the Select All button.",s:"Select the words. Click the Select All button.",why:"Select first. Then you can change the words.",hot:"#bSel",done:()=>S.sel},
+ {m:"word",t:"Make the words look nice",x:"Click B. Click I. Click U. Pick size 26. Click green.",s:"Make the words look nice. Click B. Click I. Click U. Pick size twenty six. Click the green colour.",why:"B makes words dark. I makes words lean. U puts a line under words.",hot:()=>!S.fmt.b?"#bB":!S.fmt.i?"#bI":!S.fmt.u?"#bU":S.fmt.size!==26?"#fSize":"#swGreen",done:()=>S.fmt.b&&S.fmt.i&&S.fmt.u&&S.fmt.size===26&&S.fmt.color==="#1b8a3c"},
+ {m:"save",t:"Save your work",x:"Click File. Click Save As. Type sample. Click Save.",s:"Save your work. Click File. Click Save As. Type the word, sample. Click Save.",why:"Saving keeps your work. You can open it again later.",hot:()=>!$("dlgSave").hidden?($("fname").value.trim().toLowerCase()==="sample"?"#saveGo":"#fname"):S.fileMenu?"#mSave":"#fileBtn",done:()=>S.saved},
+ {m:"save",t:"Print",x:"Click File. Click Print. Click the Print button.",s:"Now print. Click File. Click Print. Then click the Print button.",why:"The printer puts your words on paper.",hot:()=>!$("dlgPrint").hidden?"#printGo":S.fileMenu?"#mPrint":"#fileBtn",done:()=>S.paperOut},
+ {m:"save",t:"Take the paper",x:"Click the paper on the printer.",s:"Take the paper. Click the paper on the printer.",why:"Take the paper slowly.",hot:"#sheet",done:()=>S.taken},
+ {m:"files",t:"Close Word",x:"Click the ✕ at the top right.",s:"Close Word. Click the cross. It is at the top, on the right side.",why:"Your work is saved. You can close Word.",hot:"#wClose",done:()=>!S.word},
+ {m:"files",t:"Find your file",x:"Click Documents two times fast. Then click sample two times fast.",s:"Find your file. Click Documents two times, fast. Then click sample two times, fast.",why:"Your file is kept in Documents.",hot:()=>S.ex?"#exList .file-sample":"#icDocs",done:()=>S.openedFile},
+ {m:"cd",t:"Open the DVD tray",x:"Press the small button on the CPU box. It is under the DVD slot.",s:"Open the DVD tray. Press the small button on the CPU box. It is under the DVD slot.",why:"The tray comes out.",hot:"#eject",done:()=>S.tray},
+ {m:"cd",t:"Put in the DVD",x:"Click the DVD on the table.",s:"Put in the DVD. Click the DVD on the table.",why:"Hold a DVD by its edges.",hot:"#disc",done:()=>S.discIn},
+ {m:"cd",t:"Close the tray",x:"Click the tray. It goes back in.",s:"Close the tray. Click the tray. It goes back in.",why:"",hot:"#tray",done:()=>S.discIn&&!S.tray},
+ {m:"cd",t:"Open the DVD",x:"Click This PC two times fast. Then click DVD Drive two times fast.",s:"Open the DVD. Click This PC two times, fast. Then click DVD Drive two times, fast.",why:"The DVD Drive has the letter E.",hot:()=>S.word?"#wClose":S.ex?(S.exPath==="pc"?"#exList .file-dvd":"#navPC"):"#icPC",done:()=>S.dvdOpened},
+ {m:"shutdown",t:"Switch off the computer",x:"Close the window. Click Start. Click Power. Click Shut down.",s:"Switch off the computer. Close the window. Click Start. Click Power. Click Shut down.",why:"Do not pull the plug. Always use Shut down.",hot:()=>S.ex?"#exClose":S.word?"#wClose":!S.start?"#startBtn":!S.pwr?"#pwrBtn":"#shutBtn",done:()=>S.screen==="off"&&!S.pcOn&&S.shutDone},
+ {m:"shutdown",t:"Switch off the wall",x:"Wait for the black screen. Click the switch on the wall.",s:"Switch off the wall. Wait for the black screen. Then click the switch on the wall.",why:"This saves power.",hot:"#sw",done:()=>!S.switchOn}
 ];
 let step=0;
 const norm=s=>s.replace(/ /g," ").replace(/\s+/g," ").trim();
 
-function toast(t){const e=$("toast");e.textContent=t;e.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>e.hidden=true,2600)}
+function toast(t,quiet){const e=$("toast");e.textContent=t;e.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>e.hidden=true,6000);if(!quiet&&autoSpeak)talk(t)}
 function say(t,kind){const m=$("msg");m.textContent=t;m.className="msg "+(kind||"good");m.hidden=!t}
 function wrong(t){S.mistakes++;toast(t)}
 
@@ -468,13 +482,14 @@ function render(){
     $("stepNo").textContent=`Step ${step+1} of ${STEPS.length}`;
     $("stepTitle").textContent=st.t;$("stepText").textContent=st.x;
     $("stepTarget").hidden=!st.target;$("stepTarget").textContent=st.target||"";
-    $("stepWhy").textContent=st.why?("Why: "+st.why):"";$("stepWhy").hidden=!st.why;
+    $("stepWhy").textContent=st.why?("Tip: "+st.why):"";$("stepWhy").hidden=!st.why;
   }
   $("barFill").style.width=(100*step/STEPS.length)+"%";
   const cm=st?st.m:"done";
   document.querySelectorAll(".mod[data-m]").forEach(b=>{const i=MODS.findIndex(x=>x.id===b.dataset.m),ci=MODS.findIndex(x=>x.id===cm);b.classList.toggle("on",b.dataset.m===cm);b.classList.toggle("done",ci===-1||i<ci)});
   document.querySelectorAll(".hot.next").forEach(e=>e.classList.remove("next"));
   if(st){const sel=typeof st.hot==="function"?st.hot():st.hot;const e=document.querySelector(sel);if(e)e.classList.add("next")}
+  if(typeof markKey==="function")markKey();
 }
 function renderEx(){
   const p=S.exPath;$("exTitle").textContent=p==="pc"?"This PC":p==="dvd"?"DVD Drive (E:)":"Documents";
@@ -498,10 +513,10 @@ function renderEx(){
   $("exList").querySelectorAll(".file-sample").forEach(b=>b.classList.add("hot"));
 }
 function openItem(key){
-  if(!key)return toast("Open is for files and drives in this lesson.");
+  if(!key)return toast("Click your file first.");
   if(key==="docs"){S.exPath="docs";S.exSel=null}
-  else if(key==="dvd"){S.exPath="dvd";S.exSel=null;if(S.discIn&&!S.tray){S.dvdOpened=true}else toast(S.tray?"Close the DVD tray first.":"The drive is empty. Insert the Lesson DVD.")}
-  else if(key==="sample"){S.ex=false;S.word=true;S.openedFile=true;toast("Your saved file opened in the Word Processor.")}
+  else if(key==="dvd"){S.exPath="dvd";S.exSel=null;if(S.discIn&&!S.tray){S.dvdOpened=true}else toast(S.tray?"Close the DVD tray first.":"There is no DVD. Put in the DVD first.")}
+  else if(key==="sample"){S.ex=false;S.word=true;S.openedFile=true;toast("Good! Your file is open.")}
   check();
 }
 
@@ -513,7 +528,7 @@ function check(){
   if(moved){
     if(step>=STEPS.length)return finish();
     say("Well done! Next: "+STEPS[step].t);
-    if(autoSpeak)speak();
+    if(autoSpeak)talk(["Well done!",STEPS[step].s]);
   }
   render();
 }
@@ -521,10 +536,10 @@ function finish(){
   render();
   const mins=Math.max(1,Math.round((Date.now()-S.t0)/60000));
   const task=document.querySelector(".task");
-  $("stepNo").textContent="Lesson complete";$("stepTitle").textContent="You can operate a computer!";
-  $("stepText").textContent=`You finished all ${STEPS.length} steps in about ${mins} minute${mins>1?"s":""} with ${S.mistakes} wrong click${S.mistakes===1?"":"s"}.`;
-  $("stepTarget").hidden=true;$("stepWhy").textContent="Steps you practised: switch on, log in, open a program, type, format, save, print, find a file, use a DVD, shut down.";
-  say("Lesson complete","good");$("barFill").style.width="100%";
+  $("stepNo").textContent="All done!";$("stepTitle").textContent="You did it! You can use a computer.";
+  $("stepText").textContent=`You did all ${STEPS.length} steps. Great work!`;
+  $("stepTarget").hidden=true;$("stepWhy").hidden=false;$("stepWhy").textContent=`For the teacher: about ${mins} minute${mins>1?"s":""}, ${S.mistakes} wrong click${S.mistakes===1?"":"s"}.`;
+  say("All done!","good");if(autoSpeak)talk(["All done!","You did it!","You can use a computer.","Great work!"]);$("barFill").style.width="100%";
   document.querySelectorAll(".hot.next").forEach(e=>e.classList.remove("next"));
   task.classList.add("done-card");
 }
@@ -532,27 +547,27 @@ function finish(){
 /* ---------- hardware ---------- */
 $("plug").onclick=()=>{
   if(!S.plugged)S.plugged=true;
-  else if(S.pcOn)return wrong("Do not pull the plug while the computer is on.");
-  else if(S.switchOn)return wrong("Switch off the socket before you remove the plug.");
+  else if(S.pcOn)return wrong("Do not pull the plug now. The computer is on.");
+  else if(S.switchOn)return wrong("Switch off the wall first.");
   else S.plugged=false;
   check()};
 $("sw").onclick=()=>{
-  if(!S.switchOn&&!S.plugged){wrong("Insert the power plug first.");return}
-  if(S.switchOn&&S.pcOn){wrong("Shut down the computer from the Start menu before switching off.");return}
+  if(!S.switchOn&&!S.plugged){wrong("Put in the plug first.");return}
+  if(S.switchOn&&S.pcOn){wrong("Shut down the computer first. Click Start. Click Power. Click Shut down.");return}
   S.switchOn=!S.switchOn;check()};
 $("power").onclick=()=>{
-  if(!S.plugged||!S.switchOn){wrong("There is no power. Plug in and switch on the wall socket first.");return}
-  if(S.pcOn){wrong("The computer is already on. To switch off, use Start → Power → Shut down.");return}
+  if(!S.plugged||!S.switchOn){wrong("No power. Put in the plug. Switch on the wall.");return}
+  if(S.pcOn){wrong("The computer is already on.");return}
   S.pcOn=true;S.screen="boot";check();
   setTimeout(()=>{S.screen="login";check();setTimeout(()=>$("pw").focus({preventScroll:true}),50)},2200)};
 $("pwForm").onsubmit=e=>{e.preventDefault();
   if($("pw").value==="1234"){S.screen="desk";$("pw").value="";check()}
-  else{wrong("Wrong password. Type 1234.");$("pw").value="";$("pw").focus()}};
+  else{wrong("Try again. Type 1 2 3 4.");$("pw").value="";$("pw").focus()}};
 $("eject").onclick=()=>{
-  if(!S.pcOn&&!(STEPS[step]&&STEPS[step].m==="cd")){toast("Switch on the computer to use the DVD drive.");return}
+  if(!S.pcOn&&!(STEPS[step]&&STEPS[step].m==="cd")){toast("Switch on the computer first.");return}
   S.tray=!S.tray;check()};
-$("tray").onclick=()=>{if(S.tray){S.tray=false;check()}else toast("Press the eject button to open the tray.")};
-$("disc").onclick=()=>{if(!S.tray){wrong("Open the DVD tray first. Press the eject button on the CPU.");return}S.discIn=true;check()};
+$("tray").onclick=()=>{if(S.tray){S.tray=false;check()}else toast("Press the small button to open the tray.")};
+$("disc").onclick=()=>{if(!S.tray){wrong("Open the tray first. Press the small button on the CPU box.");return}S.discIn=true;check()};
 $("sheet").onclick=()=>{if(S.paperOut&&!S.taken){S.taken=true;check()}};
 
 /* ---------- desktop ---------- */
@@ -561,21 +576,21 @@ $("appWord").onclick=()=>{S.start=false;S.word=true;S.ex=false;check();setTimeou
 $("appEx").onclick=()=>{S.start=false;S.ex=true;S.exPath="docs";check()};
 $("pwrBtn").onclick=()=>{S.pwr=!S.pwr;check()};
 $("shutBtn").onclick=()=>{
-  if(S.word||S.ex){wrong("Close all windows before shutting down.");S.start=false;S.pwr=false;check();return}
+  if(S.word||S.ex){wrong("Close the window first.");S.start=false;S.pwr=false;check();return}
   S.start=false;S.pwr=false;S.screen="shut";check();
   setTimeout(()=>{S.screen="off";S.pcOn=false;S.shutDone=true;check()},2400)};
-function dbl(el,fn){let t=0;el.addEventListener("click",()=>{const n=Date.now();if(n-t<450){fn();t=0}else{t=n;toast("Double-click to open (click twice quickly).")}})}
+function dbl(el,fn){let t=0;el.addEventListener("click",()=>{const n=Date.now();if(n-t<450){fn();t=0}else{t=n;toast("Click two times, fast.")}})}
 dbl($("icDocs"),()=>{S.ex=true;S.exPath="docs";S.exSel=null;S.start=false;check()});
 dbl($("icPC"),()=>{S.ex=true;S.exPath="pc";S.exSel=null;S.start=false;check()});
 $("exClose").onclick=()=>{S.ex=false;check()};
 $("tbEx").onclick=()=>{};$("tbWord").onclick=()=>{};
 document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>{S.exPath=b.dataset.p;S.exSel=null;if(b.dataset.p==="dvd")openItem("dvd");else check()});
-$("exOpen").onclick=()=>{if(!S.exSel)return toast("Click a file or drive first, then press Open.");openItem(S.exSelKey)};
+$("exOpen").onclick=()=>{if(!S.exSel)return toast("Click your file first. Then click Open.");openItem(S.exSelKey)};
 
 /* ---------- word ---------- */
 const doc=$("doc");
 $("wClose").onclick=()=>{
-  if(norm(doc.innerText)&&!S.saved){wrong("Save your document first (File → Save As).");return}
+  if(norm(doc.innerText)&&!S.saved){wrong("Save your work first. Click File. Click Save As.");return}
   S.word=false;S.fileMenu=false;check()};
 $("fileBtn").onclick=()=>{S.fileMenu=!S.fileMenu;check()};
 $("mClose").onclick=()=>$("wClose").onclick();
@@ -583,15 +598,15 @@ $("mSave").onclick=()=>{S.fileMenu=false;$("dlgSave").hidden=false;$("fname").va
 $("saveCancel").onclick=()=>{$("dlgSave").hidden=true;check()};
 $("saveGo").onclick=()=>{
   const n=$("fname").value.trim();
-  if(n.toLowerCase()!=="sample"){wrong("Type the file name: sample");$("fname").focus();return}
-  if(!norm(doc.innerText)){wrong("Type your sentence before saving.");return}
-  S.docName=n;S.saved=true;$("dlgSave").hidden=true;toast("Saved in Documents as "+n);check()};
+  if(n.toLowerCase()!=="sample"){wrong("Type the word: sample");$("fname").focus();return}
+  if(!norm(doc.innerText)){wrong("Type your words first.");return}
+  S.docName=n;S.saved=true;$("dlgSave").hidden=true;toast("Saved! Your file is called "+n+".");check()};
 $("fname").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();$("saveGo").click()}});
 $("fname").addEventListener("input",render);
 $("mPrint").onclick=()=>{S.fileMenu=false;$("dlgPrint").hidden=false;check()};
 $("printCancel").onclick=()=>{$("dlgPrint").hidden=true;check()};
 $("printGo").onclick=()=>{
-  if(!norm(doc.innerText))return wrong("There is nothing to print yet.");
+  if(!norm(doc.innerText))return wrong("Type your words first.");
   $("dlgPrint").hidden=true;S.printing=true;S.taken=false;$("lcd").textContent="Printing";check();
   setTimeout(()=>{S.paperOut=true;check()},200);
   setTimeout(()=>{$("lcd").textContent="Ready"},2300)};
@@ -599,8 +614,8 @@ $("printGo").onclick=()=>{
 function selectedAll(){const s=getSelection();if(!s.rangeCount||!doc.contains(s.anchorNode))return false;const t=norm(s.toString());return t.length>0&&t===norm(doc.innerText)}
 document.addEventListener("selectionchange",()=>{if(S.word&&selectedAll()&&!S.sel){S.sel=true;check()}});
 $("bSel").addEventListener("mousedown",e=>e.preventDefault());
-$("bSel").onclick=()=>{if(!norm(doc.innerText))return toast("Type something first.");doc.focus();const r=document.createRange();r.selectNodeContents(doc);const s=getSelection();s.removeAllRanges();s.addRange(r);S.sel=true;check()};
-function fmtOk(){if(!S.sel){wrong("Select the text first.");return false}return true}
+$("bSel").onclick=()=>{if(!norm(doc.innerText))return toast("Type your words first.");doc.focus();const r=document.createRange();r.selectNodeContents(doc);const s=getSelection();s.removeAllRanges();s.addRange(r);S.sel=true;check()};
+function fmtOk(){if(!S.sel){wrong("Click Select All first.");return false}return true}
 for(const [id,k] of [["bB","b"],["bI","i"],["bU","u"]]){$(id).addEventListener("mousedown",e=>e.preventDefault());$(id).onclick=()=>{if(fmtOk()){S.fmt[k]=!S.fmt[k];check()}}}
 $("fSize").onchange=e=>{if(!fmtOk()){e.target.value=S.fmt.size;return}S.fmt.size=+e.target.value;check()};
 document.querySelectorAll(".sw").forEach(b=>{b.addEventListener("mousedown",e=>e.preventDefault());b.onclick=()=>{if(fmtOk()){S.fmt.color=b.dataset.c;check()}}});
@@ -608,7 +623,7 @@ doc.addEventListener("keydown",e=>{
   if(e.key==="Enter"){e.preventDefault();return}
   if((e.ctrlKey||e.metaKey)&&["b","i","u"].includes(e.key.toLowerCase())){e.preventDefault();if(fmtOk()){S.fmt[e.key.toLowerCase()]=!S.fmt[e.key.toLowerCase()];check()}}
 });
-doc.addEventListener("paste",e=>{e.preventDefault();toast("Please type the words yourself — that is the practice!")});
+doc.addEventListener("paste",e=>{e.preventDefault();toast("Please type the words yourself.")});
 doc.addEventListener("input",()=>{if(doc.innerHTML.includes("<")&&doc.children.length){const t=doc.innerText;doc.textContent=t;placeEnd()}if(STEPS[step]&&STEPS[step].m==="word"&&step<=5)S.sel=false;check()});
 function placeEnd(){const r=document.createRange();r.selectNodeContents(doc);r.collapse(false);const s=getSelection();s.removeAllRanges();s.addRange(r)}
 
@@ -619,25 +634,95 @@ const ROWS=["1234567890","qwertyuiop","asdfghjkl","zxcvbnm"];
 function buildOsk(){
   const o=$("osk");o.innerHTML="";
   ROWS.forEach((r,i)=>{const row=document.createElement("div");row.className="r";
-    if(i===3)row.appendChild(key("Shift","w",()=>{shift=!shift;buildOsk()},shift));
-    [...r].forEach(c=>row.appendChild(key(shift?c.toUpperCase():c,"",()=>type(shift?c.toUpperCase():c))));
-    if(i===0)row.appendChild(key("⌫ Back","w",()=>{refocus();document.execCommand("delete")}));
-    if(i===2)row.appendChild(key("Enter","w",()=>{if(lastField&&lastField.id==="pw")$("pwForm").requestSubmit();else if(lastField&&lastField.id==="fname")$("saveGo").click()}));
+    if(i===3)row.appendChild(key("⇧ Shift","w",()=>{shift=!shift;buildOsk()},shift,"shift"));
+    [...r].forEach(c=>row.appendChild(key(shift?c.toUpperCase():c,"",()=>type(shift?c.toUpperCase():c),false,c)));
+    if(i===0)row.appendChild(key("⌫ Back","w",()=>{refocus();document.execCommand("delete")},false,"back"));
+    if(i===2)row.appendChild(key("Enter","w",()=>{refocus();if(lastField&&lastField.id==="pw")$("pwForm").requestSubmit();else if(lastField&&lastField.id==="fname")$("saveGo").click()},false,"enter"));
     o.appendChild(row)});
   const r=document.createElement("div");r.className="r";
   r.appendChild(key("Ctrl + A","w",()=>$("bSel").click()));
-  r.appendChild(key("Space","sp",()=>type(" ")));
+  r.appendChild(key("Space","sp",()=>type(" "),false,"space"));
   r.appendChild(key(".","",()=>type(".")));o.appendChild(r);
+  markKey();
 }
-function key(l,c,fn,on){const b=document.createElement("button");b.textContent=l;if(c)b.className=c;if(on)b.classList.add("on");b.addEventListener("mousedown",e=>e.preventDefault());b.onclick=fn;return b}
+/* Which key should the learner press next? */
+function wantKey(){
+  const st=STEPS[step];if(!st)return null;
+  let field=null,goal=null,cur="";
+  if(S.screen==="login"){field=$("pw");goal="1234";cur=field.value}
+  else if(S.word&&!$("dlgSave").hidden){field=$("fname");goal="sample";cur=field.value}
+  else if(S.word&&st.target){field=doc;goal=TEXT;cur=doc.innerText.replace(/\u00a0/g," ").replace(/\n$/,"")}
+  if(!goal)return null;
+  if(cur===goal)return field===doc?null:"enter";
+  if(!goal.startsWith(cur))return "back";
+  const ch=goal[cur.length];
+  if(ch===" ")return "space";
+  if(ch!==ch.toLowerCase()&&!shift)return "shift";
+  return ch.toLowerCase();
+}
+function markKey(){
+  document.querySelectorAll(".osk .keynext").forEach(b=>b.classList.remove("keynext"));
+  if($("oskWrap").hidden||!$("wrap").classList.contains("guide"))return;
+  const k=wantKey();if(!k)return;
+  const b=document.querySelector('.osk button[data-k="'+(k==='"'?'q':k)+'"]');if(b)b.classList.add("keynext");
+}
+function key(l,c,fn,on,k){const b=document.createElement("button");b.textContent=l;if(k)b.dataset.k=k;if(c)b.className=c;if(on)b.classList.add("on");b.addEventListener("mousedown",e=>e.preventDefault());b.onclick=fn;return b}
 function refocus(){const f=lastField&&!lastField.closest("[hidden]")?lastField:(S.screen==="login"?$("pw"):S.word?doc:null);if(f&&document.activeElement!==f){f.focus();if(f===doc)placeEnd()}return f}
-function type(ch){if(!refocus())return toast("Click where you want to type first.");document.execCommand("insertText",false,ch);if(shift){shift=false;buildOsk()}}
-$("oskBtn").onclick=e=>{const on=$("oskWrap").hidden;$("oskWrap").hidden=!on;e.currentTarget.setAttribute("aria-pressed",on);if(on)buildOsk()};
+function type(ch){if(!refocus())return toast("Click the white box first.");document.execCommand("insertText",false,ch);if(shift){shift=false;buildOsk()}}
+$("oskBtn").onclick=e=>{const on=$("oskWrap").hidden;$("oskWrap").hidden=!on;e.currentTarget.setAttribute("aria-pressed",on);e.currentTarget.textContent=on?"Hide keyboard":"Show keyboard";if(on)buildOsk()};
+buildOsk();
+$("pw").addEventListener("input",markKey);$("fname").addEventListener("input",markKey);
 
 /* ---------- misc ---------- */
+/* Slow, clear voice: each short sentence is spoken alone, with a pause after it. */
+const SPEEDS=[{n:"Very slow",r:0.55,gap:1100},{n:"Slow",r:0.7,gap:800},{n:"Normal",r:0.85,gap:500}];
+let speedIx=0;try{const v=+localStorage.getItem("cbo-speed");if(v>=0&&v<SPEEDS.length)speedIx=v}catch(e){}
+let voice=null,talkId=0,voiceList=[];
+function voiceKind(v){
+  if(/en[-_]IN/i.test(v.lang))return 0;          // Indian English
+  if(/hi[-_]IN/i.test(v.lang))return 1;          // Hindi voice: reads English with an Indian accent
+  if(/^en/i.test(v.lang))return 2;               // other English
+  return 9;
+}
+function voiceLabel(v){
+  const k=voiceKind(v),n=v.name.replace(/^(Microsoft|Google)\s+/,"").replace(/\s*Online.*$/,"").replace(/\s*-\s*English.*$/,"");
+  return (k===0?"🇮🇳 Indian English — ":k===1?"🇮🇳 Indian accent (Hindi voice) — ":"English ("+v.lang+") — ")+n;
+}
+function pickVoice(){try{
+  const vs=speechSynthesis.getVoices();if(!vs.length)return;
+  voiceList=vs.filter(v=>voiceKind(v)<9).sort((a,b)=>voiceKind(a)-voiceKind(b)||a.name.localeCompare(b.name));
+  let saved=null;try{saved=localStorage.getItem("cbo-voice")}catch(e){}
+  voice=voiceList.find(v=>v.name===saved)||voiceList.find(v=>voiceKind(v)===0&&/female|heera|neerja|veena|swara/i.test(v.name))||voiceList[0]||null;
+  const sel=$("voiceSel");sel.innerHTML="";
+  if(!voiceList.length){sel.innerHTML="<option>Default voice</option>";return}
+  voiceList.forEach((v,i)=>{const o=document.createElement("option");o.value=i;o.textContent=voiceLabel(v);if(v===voice)o.selected=true;sel.appendChild(o)});
+}catch(e){}}
+$("voiceSel").onchange=e=>{voice=voiceList[+e.target.value]||null;try{localStorage.setItem("cbo-voice",voice?voice.name:"")}catch(_){}autoSpeak=true;speak()};
+try{pickVoice();speechSynthesis.onvoiceschanged=pickVoice}catch(e){}
+function talk(text){
+  try{
+    speechSynthesis.cancel();
+    const parts=[].concat(text).join(" ").match(/[^.!?]+[.!?]*/g)||[];
+    const my=++talkId,sp=SPEEDS[speedIx];let i=0;
+    const next=()=>{
+      if(my!==talkId||i>=parts.length)return;
+      const line=parts[i++].trim();if(!line)return next();
+      const u=new SpeechSynthesisUtterance(line);
+      u.rate=sp.r;u.pitch=1;u.volume=1;
+      if(voice){u.voice=voice;u.lang=voice.lang}else u.lang="en-IN";
+      u.onend=u.onerror=()=>setTimeout(next,sp.gap);
+      speechSynthesis.speak(u)};
+    setTimeout(next,150);
+  }catch(e){}
+}
 let autoSpeak=false;
-function speak(){try{const st=STEPS[step];if(!st)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(st.t+". "+st.x+(st.target?" "+st.target:""));u.lang="en-IN";u.rate=.92;speechSynthesis.speak(u)}catch(e){}}
+function speak(){const st=STEPS[step];if(st)talk(st.s||(st.t+". "+st.x))}
 $("speak").onclick=()=>{autoSpeak=true;speak()};
+function showSpeed(){$("speedBtn").textContent="Speed: "+SPEEDS[speedIx].n}
+$("speedBtn").onclick=()=>{speedIx=(speedIx+1)%SPEEDS.length;try{localStorage.setItem("cbo-speed",speedIx)}catch(e){}showSpeed();autoSpeak=true;speak()};
+showSpeed();
+/* Turn the voice on at the learner's first touch (browsers block sound before that). */
+document.addEventListener("pointerdown",function first(e){document.removeEventListener("pointerdown",first,true);if(autoSpeak)return;autoSpeak=true;if(e.target.closest("#speak,#speedBtn"))return;const t0=talkId;setTimeout(()=>{if(talkId===t0)speak()},300)},true);
 $("guideBtn").onclick=e=>{const on=!$("wrap").classList.toggle("guide")?false:true;e.currentTarget.textContent="Guide: "+(on?"On":"Off");e.currentTarget.setAttribute("aria-pressed",on)};
 $("restartBtn").onclick=()=>{location.hash?location.reload():location.reload()};
 function tick(){const d=new Date();$("clock").innerHTML=d.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})+"<br>"+d.toLocaleDateString()}
@@ -655,7 +740,7 @@ function preset(h){
   else if(h==="shutdown"){on();typed();S.saved=true;S.docName="sample";S.taken=true;S.openedFile=true;S.discIn=true;S.dvdOpened=true}
 }
 const h=location.hash.slice(1);if(MODS.some(m=>m.id===h))preset(h);
-if(h&&MODS.some(m=>m.id===h)){step=STEPS.findIndex(x=>x.m===h);say("Station: "+MODS.find(m=>m.id===h).name.slice(2))}
+if(h&&MODS.some(m=>m.id===h)){step=STEPS.findIndex(x=>x.m===h);say("Part: "+MODS.find(m=>m.id===h).name.slice(2))}
 render();
 </script>
 </body>
